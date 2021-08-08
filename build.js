@@ -6,6 +6,7 @@ const process = require("process");
 async function main() {
     if (!process.env.USE_NETLIFY_FORMS) {
         const submissionOldFunction = path.resolve(__dirname, "func", "submission-created.js");
+        const submissionNewFunction = path.resolve(__dirname, "func", "submit-appeal.js");
         fs.rename(submissionOldFunction, submissionNewFunction, err => {
             if (err) {
                 console.log(err);
