@@ -37,7 +37,7 @@ exports.handler = async function (event, context) {
             return {
                 statusCode: 303,
                 headers: {
-                    "Location": `/error?msg=${encodeURIComponent("You cannot submit ban appeals with this Discord account.")}`,
+                    "Location": `/error?msg=${encodeURIComponent("Esta cuenta ha sido bloqueada.\nNo puedes realizar apelaciones desde esta cuenta.")}`,
                 },
             };
         }
