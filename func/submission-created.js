@@ -58,7 +58,7 @@ exports.handler = async function (event, context) {
                         value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
-                        name: "¿Cuándo fuiste baneado?",
+                        name: "¿Cuándo fuiste baneado? (yyy-mm-dd)",
                         value: payload.banDate.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
