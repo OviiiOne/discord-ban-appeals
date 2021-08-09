@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
             return {
                 statusCode: 303,
                 headers: {
-                    "Location": `/error?msg=${encodeURIComponent("Esta cuenta ha sido bloqueada.\nNo puedes realizar apelaciones desde esta cuenta.")}`,
+                    "Location": `/error?msg=${encodeURIComponent("Esta cuenta ha sido bloqueada, has debido abusar del sistema de apelaciones o bien el ban fue debido a un incumplimiento de los ToS.\nNo puedes realizar apelaciones desde esta cuenta.")}`,
                 },
             };
         }
