@@ -43,7 +43,9 @@ exports.handler = async function (event, context) {
                 },
             };
         }
-        
+        var url = process.env.WEBHOOK_URL;
+        const message = {
+            embed: {
         const message = {
             embed: {
                 title: "¡Nueva apelación recibida!",
@@ -105,12 +107,7 @@ exports.handler = async function (event, context) {
         });
 
         if (result.ok) {
-            if (process.env.USE_NETLIFY_FORMS) {
-                return {
-                    statusCode: 200
-                };
-            } else {
-                return {
+            return {
                     statusCode: 303,
                     headers: {
                         "Location": "/success"
