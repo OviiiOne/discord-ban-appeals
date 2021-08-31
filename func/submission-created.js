@@ -87,6 +87,7 @@ exports.handler = async function (event, context) {
                     userId: userInfo.id
                 };
 
+    
                 message.components = [{
                     type: 1,
                     components: [{
