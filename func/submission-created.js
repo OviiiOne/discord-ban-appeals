@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 const { API_ENDPOINT, MAX_EMBED_FIELD_CHARS, MAX_EMBED_FOOTER_CHARS } = require("./helpers/discord-helpers.js");
 const { createJwt, decodeJwt } = require("./helpers/jwt-helpers.js");
-const { getBan } = require("./helpers/user-helpers.js");
+const { getBan, isBlocked } = require("./helpers/user-helpers.js");
 
 exports.handler = async function (event, context) {
     let payload;
@@ -19,7 +19,6 @@ exports.handler = async function (event, context) {
         const params = new URLSearchParams(event.body);
         payload = {
             banReason: params.get("banReason") || undefined,
-            banDate: params.get("banDate") || undefined,
             appealText: params.get("appealText") || undefined,
             futureActions: params.get("futureActions") || undefined,
             token: params.get("token") || undefined
@@ -27,15 +26,12 @@ exports.handler = async function (event, context) {
     }
 
     if (payload.banReason !== undefined &&
-        payload.banDate !== undefined &&
         payload.appealText !== undefined &&
-        payload.futureActions !== undefined && 
+        payload.futureActions !== undefined &&
         payload.token !== undefined) {
-        
+
         const userInfo = decodeJwt(payload.token);
-        
-        const blockedUsers = JSON.parse(`[${process.env.BLOCKED_USERS || ""}]`);
-        if (blockedUsers.indexOf(userInfo.id) > -1) {
+        if (isBlocked(userInfo.id)) {
             return {
                 statusCode: 303,
                 headers: {
@@ -43,7 +39,7 @@ exports.handler = async function (event, context) {
                 },
             };
         }
-        
+
         const message = {
             embed: {
                 title: "¡Nueva apelación recibida!",
@@ -86,12 +82,20 @@ exports.handler = async function (event, context) {
             }
 
             if (!process.env.DISABLE_UNBAN_LINK) {
-                const unbanUrl = new URL("/.netlify/functions/unban", process.env.URL);
+                const unbanUrl = new URL("/.netlify/functions/unban", DEPLOY_PRIME_URL);
                 const unbanInfo = {
                     userId: userInfo.id
                 };
-    
-                message.embed.description = `[Aprobar apelación y quitar ban al usuario](${unbanUrl.toString()}?token=${encodeURIComponent(createJwt(unbanInfo))})`;
+
+                message.components = [{
+                    type: 1,
+                    components: [{
+                        type: 2,
+                        style: 5,
+                        label: "Aprobar apelación y quitar ban al usuario",
+                        url: `${unbanUrl.toString()}?token=${encodeURIComponent(createJwt(unbanInfo))}`
+                    }]
+                }];
             }
         }
 
@@ -118,7 +122,7 @@ exports.handler = async function (event, context) {
                 };
             }
         } else {
-            console.log(await result.json());
+            console.log(JSON.stringify(await result.json()));
             throw new Error("Failed to submit message");
         }
     }
