@@ -26,6 +26,7 @@ exports.handler = async function (event, context) {
     }
 
     if (payload.banReason !== undefined &&
+        payload.banDate !== undefined &&
         payload.appealText !== undefined &&
         payload.futureActions !== undefined &&
         payload.token !== undefined) {
@@ -87,6 +88,7 @@ exports.handler = async function (event, context) {
                     userId: userInfo.id
                 };
 
+    
                 message.components = [{
                     type: 1,
                     components: [{
