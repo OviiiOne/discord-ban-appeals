@@ -26,6 +26,7 @@ exports.handler = async function (event, context) {
     }
 
     if (payload.banReason !== undefined &&
+        payload.banDate !== undefined &&
         payload.appealText !== undefined &&
         payload.futureActions !== undefined &&
         payload.token !== undefined) {
