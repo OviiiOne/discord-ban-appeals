@@ -12,19 +12,6 @@ h1 {
     color: white;
 }
 
-input {
-    color: #dcddde !important;
-
-    background: rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid rgba(0, 0, 0, 0.3) !important;
-
-    outline: none !important;
-    box-shadow: none !important;
-
-    transition: border-color .2s ease-in-out;
-    resize: none;
-
-    overflow-y: hidden;
 h2, p {
     color: #b9bbbe;
 }
@@ -144,6 +131,21 @@ select:invalid {
 
 option {
     color: #b9bbbe;
+}
+
+input {
+    color: #dcddde !important;
+
+    background: rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+
+    outline: none !important;
+    box-shadow: none !important;
+
+    transition: border-color .2s ease-in-out;
+    resize: none;
+
+    overflow-y: hidden;
 }
 
 textarea {
