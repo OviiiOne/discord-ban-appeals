@@ -37,7 +37,7 @@ exports.handler = async function (event, context) {
             return {
                 statusCode: 303,
                 headers: {
-                    "Location": `/error?msg=${encodeURIComponent("Esta cuenta ha sido bloqueada, has debido abusar del sistema de apelaciones o bien el ban fue debido a un incumplimiento de los ToS.\nNo puedes realizar apelaciones desde esta cuenta.")}`,
+                    "Location": `/error?msg=${encodeURIComponent("Esta cuenta ha sido bloqueada, esto puede deberse a un abuso del sistema de apelaciones o a que el motivo del baneo fue **Romper los ToS de Discord**.\nNo puedes realizar apelaciones desde esta cuenta.")}`,
                 },
             };
         }
